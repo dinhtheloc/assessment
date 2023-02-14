@@ -1,0 +1,84 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+        <label for="question" class="form-label"
+            >Question <span style="color: red">*</span></label
+        >
+        <input
+            [formControl]="name"
+            type="text"
+            class="form-control"
+            [ngClass]="{
+                'is-invalid': f['name'].touched && f['name'].invalid
+            }"
+            id="question"
+            placeholder="Input your question"
+        />
+    </div>
+    <div class="mb-3">
+        <label for="type" class="form-label">Type</label>
+        <select
+            (ngModelChange)="onChange($event)"
+            [formControl]="type"
+            class="form-control"
+            id="type"
+        >
+            <option value="text">Paragraph</option>
+            <option value="checkbox">Checkbox list</option>
+        </select>
+    </div>
+
+    <div *ngIf="type.value === 'checkbox'" formArrayName="itemRows">
+        <div *ngFor="let item of itemRows.controls; index as i">
+            <div class="mb-3" [formGroupName]="i">
+                <label class="form-label"
+                    >Answer {{ i + 1 }} <span style="color: red">*</span></label
+                >
+                <input
+                    type="text"
+                    class="form-control"
+                    [ngClass]="{
+                        'is-invalid': item.touched && item.invalid
+                    }"
+                    formControlName="answer"
+                    placeholder="Input Your Answer"
+                />
+            </div>
+        </div>
+    </div>
+    <button
+        *ngIf="type.value === 'checkbox'"
+        type="button"
+        class="btn btn-link"
+        (click)="addItemRow()"
+    >
+        + Add another answer
+    </button>
+
+    <div class="mb-3 form-check">
+        <input
+            [formControl]="specifyAns"
+            type="checkbox"
+            class="form-check-input"
+            id="specifyAns"
+        />
+        <label class="form-check-label" for="specifyAns"
+            >Allow user to specify their own anser</label
+        >
+    </div>
+
+    <div class="mb-3 form-check">
+        <input
+            [formControl]="required"
+            type="checkbox"
+            class="form-check-input"
+            id="required"
+        />
+        <label class="form-check-label" for="required"
+            >This field is required</label
+        >
+    </div>
+
+    <button [disabled]="!form.valid" type="submit" class="btn btn-primary">
+        Submit
+    </button>
+</form>

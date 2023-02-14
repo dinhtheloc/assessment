@@ -1,0 +1,44 @@
+<div class="p-4">
+    <h1>Preview</h1>
+    <div *ngFor="let item of questions$ | async">
+        <ng-container [ngSwitch]="item.type">
+            <ng-container *ngSwitchCase="'text'">
+                <div class="mb-3">
+                    <label class="form-label"
+                        >{{ item.name }}
+                        <span *ngIf="item.required" style="color: red"
+                            >*</span
+                        ></label
+                    >
+                    <p>{{ item.text ? item.text : 'No answer' }}</p>
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'checkbox'">
+                <div class="mb-3">
+                    <label class="form-label"
+                        >{{ item.name }}
+                        <span *ngIf="item.required" style="color: red"
+                            >*</span
+                        ></label
+                    >
+                    <ng-container *ngFor="let row of item.itemRows">
+                        <div *ngIf="row.value" class="mb-3 form-check">
+                            <label class="form-check-label">{{
+                                row.answer
+                            }}</label>
+                        </div>
+                    </ng-container>
+
+                    <div *ngIf="item.other.value" class="mb-3 form-check">
+                        <label class="form-check-label">{{
+                            item.other.answer
+                        }}</label>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+    <a class="btn btn-primary" routerLink="/form/builder">
+        Back to Forms Builder
+    </a>
+</div>
