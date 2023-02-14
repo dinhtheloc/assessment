@@ -4,7 +4,7 @@
         <ng-container [ngSwitch]="item.type">
             <ng-container *ngSwitchCase="'text'">
                 <div class="mb-3">
-                    <label class="form-label"
+                    <label class="form-label fw-bold"
                         >{{ item.name }}
                         <span *ngIf="item.required" style="color: red"
                             >*</span
@@ -15,7 +15,7 @@
             </ng-container>
             <ng-container *ngSwitchCase="'checkbox'">
                 <div class="mb-3">
-                    <label class="form-label"
+                    <label class="form-label fw-bold"
                         >{{ item.name }}
                         <span *ngIf="item.required" style="color: red"
                             >*</span
@@ -30,7 +30,7 @@
                     </ng-container>
 
                     <div *ngIf="item.other.value" class="mb-3 form-check">
-                        <label class="form-check-label">{{
+                        <label class="form-check-label">Other - {{
                             item.other.answer
                         }}</label>
                     </div>
